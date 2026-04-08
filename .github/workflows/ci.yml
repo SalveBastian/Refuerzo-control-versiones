@@ -1,0 +1,55 @@
+name: CI - Integración Continua
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verificar-estructura:
+    name: Verificar estructura del proyecto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: 📁 Verificar que existe index.html
+        run: |
+          if [ -f "index.html" ]; then
+            echo "✅ index.html encontrado"
+          else
+            echo "❌ index.html no encontrado"
+            exit 1
+          fi
+
+      - name: 🎨 Verificar que existe css/styles.css
+        run: |
+          if [ -f "css/styles.css" ]; then
+            echo "✅ css/styles.css encontrado"
+          else
+            echo "❌ css/styles.css no encontrado"
+            exit 1
+          fi
+
+      - name: ⚡ Verificar que existe js/main.js
+        run: |
+          if [ -f "js/main.js" ]; then
+            echo "✅ js/main.js encontrado"
+          else
+            echo "❌ js/main.js no encontrado"
+            exit 1
+          fi
+
+      - name: 📋 Verificar que existe README.md
+        run: |
+          if [ -f "README.md" ]; then
+            echo "✅ README.md encontrado"
+          else
+            echo "❌ README.md no encontrado"
+            exit 1
+          fi
+
+      - name: 🎉 Pipeline completado
+        run: echo "✅ Todos los archivos del proyecto están en su lugar"
